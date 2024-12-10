@@ -1,7 +1,9 @@
 from typing import List, Tuple
 import re
+from copy import deepcopy
 
 
+FILE = "map.txt"
 LENGTH = 130
 
 BORDER = '*'
@@ -42,7 +44,7 @@ def visit(area: List[str], position: Tuple[int, int], direction: Tuple[int, int]
     area[i] = area[i][:j] + sign + area[i][j+1:]
 
 
-# turns 90 degrees on the right
+# turns 90 degrees to the right
 def turn(direction: Tuple[int, int]) -> Tuple[int, int]:
     directions = [UP, RIGHT, DOWN, LEFT]
     curr_i = directions.index(direction)
@@ -50,15 +52,18 @@ def turn(direction: Tuple[int, int]) -> Tuple[int, int]:
     return directions[next_i]
 
 
-def part_one(area: List[str], position: Tuple[int, int], direction: Tuple[int, int]):
+def part_one(area: List[str], start_position: Tuple[int, int], start_direction: Tuple[int, int]):
+    position, direction = start_position, start_direction
     count = 0
     while True:
         if get_sign(area, position) == FREE:
             count += 1
         visit(area, position, direction)
-        while get_sign(area, add(position, direction)) == WALL:
+        sign = get_sign(area, add(position, direction))
+        while sign == WALL:
             direction = turn(direction)
-        if get_sign(area, add(position, direction)) == BORDER:
+            sign = get_sign(area, add(position, direction))
+        if sign == BORDER:
             break
         position = add(position, direction)
     print(count)
@@ -91,17 +96,21 @@ def check_loop(area: List[str], start_position: Tuple[int, int], start_direction
         position = (next_i, next_j)
 
 
-def part_two(area: List[str], position: Tuple[int, int], direction: Tuple[int, int]):
+def part_two(area: List[str], start_position: Tuple[int, int], start_direction: Tuple[int, int]):
+    position, direction = start_position, start_direction
     obstacles: List[Tuple[int, int]] = []
     while True:
-        while get_sign(area, add(position, direction)) == WALL:
+        sign = get_sign(area, add(position, direction))
+        while sign == WALL:
             direction = turn(direction)
+            sign = get_sign(area, add(position, direction))
         visit(area, position, direction)
-        if get_sign(area, add(position, direction)) == BORDER:
+        if sign == BORDER:
             break
-        obst = check_loop(area, position, direction)
-        if obst != (-1, -1) and get_sign(area, obst) == FREE and obst not in obstacles:
-            obstacles.append(obst)
+        if sign == FREE:
+            obst = check_loop(area, position, direction)
+            if obst != (-1, -1) and obst not in obstacles:
+                obstacles.append(obst)
         position = add(position, direction)      
     print(len(obstacles))
 
@@ -110,7 +119,7 @@ def main():
     area: List[str] = [""]
     start_position: Tuple[int, int] = (-1, -1)
     start_direction: Tuple[int, int] = UP
-    with open("map.txt", "r", encoding='UTF-8') as file:
+    with open(FILE, "r", encoding='UTF-8') as file:
         for i, line in enumerate(file):
             if start_position == (-1, -1):
                 starts_here = re.search("[^.#\n]", line)
@@ -125,8 +134,8 @@ def main():
     area[0] = BORDER * (LENGTH + 2)
     area.append(area[0])
 
-    # part_one(area, start_position, start_direction)
-    part_two(area, start_position, start_direction) # takes some times
+    part_one(deepcopy(area), start_position, start_direction)
+    part_two(deepcopy(area), start_position, start_direction) # takes some time
 
 
 if __name__ == "__main__":
