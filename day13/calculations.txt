@@ -1,0 +1,72 @@
+a * ax + b * bx = total_x
+a * ay + b * by = total_y
+a * ax = total_x - b * bx
+a = (total_x - b * bx) // ax = (total_y - b * by) // ay
+(total_x - b * bx) // ax == (total_y - b * by) // ay
+(total_x - b * bx) // (total_y - b * by) = ax // ay
+(total_x - b * bx) = (total_y - b * by) * ax // ay
+b * bx = total_x - ((total_y - b * by) * (ax // ay))
+b * bx = (ax // ay) * (ay // ax) * total_x - ((total_y - b * by) * (ax // ay))
+b * bx = (ax // ay) * ((ay // ax) * total_x - total_y + b * by)
+
+94 * (4200 * 4 + 11 * k) + 22 * (4200 * -17 - 47 * k) = 8400
+34 * (5400 * 2 + 67 * k) + 67 * (5400 * -1 - 34 * k) = 5400
+94 * 4 + 22 * -17 = 2 // 8400
+34 * 2 + 67 * -1 = 1  // 5400
+
+
+price = (a0 + bg * (k + l)) * A_PRICE + (b0 - ag * (k + l)) * B_PRICE  
+price - b0 + ag * (k + l) = (a0 + bg * (k + l)) * A_PRICE
+price - b0 + ag * k + ag * l = A_PRICE * a0 + A_PRICE * bg * k + A_PRICE * bg * l
+price - b0 + ag * k - A_PRICE * a0 - A_PRICE * bg * k = A_PRICE * bg * l - ag * l
+l * (A_PRICE * bg - ag) = price - b0 + ag * k - A_PRICE * a0 - A_PRICE * bg * k
+l = (price - b0 + ag * k - A_PRICE * a0 - A_PRICE * bg * k) / (A_PRICE * bg - ag)
+
+
+
+a * 41 + b * 17 = 3267    
+a * 19 + b * 78 = 3828
+41 * 5 + 17 * -12 = 1
+19 * 37 + 78 * -9 = 1
+41 * (3267 * 5 + 17 * k) + 17 * (3267 * -12 - 41 * k) = 3267
+19 * (3828 * 37 + 78 * k) + 78 * (3828 * -9 - 19 * k) = 3828
+
+ax * (total_x // gcdx * x1 + bx // gcdx * k) + bx * (total_x // gcdx * x2 - ax // gcdx * k) = total_x
+ay * (total_y // gcdy * y1 + by // gcdy * k) + by * (total_y // gcdy * y2 - ay // gcdy * k) = total_y
+
+price = (a0 + bg * k) * A_PRICE + (b0 - ag * k) * B_PRICE  
+price - (b0 - ag * k) * B_PRICE = (a0 + bg * k) * A_PRICE
+price - b0 + ag * k = a0 * A_PRICE + bg * k * A_PRICE
+ag * k - bg * k * A_PRICE = a0 * A_PRICE - price + b0
+k * (ag - bg * A_PRICE) = (a0 * A_PRICE - price + b0)
+k = (a0 * A_PRICE - price + b0) / (ag - bg * A_PRICE)
+
+a * ax + b * bx = total_x
+a * ay + b * by = total_y
+a = (total_x - b * bx) // ax = (total_y - b * by) // ay
+(total_x - b * bx) // (total_y - b * by) = ax // ay
+
+fst = a0 * A_PRICE - price + b0
+k = fst // snd
+    k = (a0 * A_PRICE - price + b0) // snd
+a = (a0 + bg * k)
+b = (b0 - ag * k)
+fst % snd == 0 
+and a >= 0 and b >= 0 
+and a * ax + b * bx == total_x 
+and a * ay + b * by == total_y
+
+
+(a0 + bg * ((a0 * A_PRICE - price + b0) // snd)) * ax + (b0 - ag * ((a0 * A_PRICE - price + b0) // snd)) * bx = total_x
+
+ax * (a0 + bg * k) + bx * (b0 - ag * k)= total_x 
+ax * a0 + ax * bg * k + bx * b0 - bx * ag * k = total_x
+
+ax * bg * k - bx * ag * k = total_x - ax * a0 - bx * b0 
+ax * bg * k - bx * ag * k = total_x - ay * a0 - by * b0
+
+k * (ax * bg - bx * ag) = total_x - ax * a0 - bx * b0 
+k = (total_x - ax * a0 - bx * b0) // (ax * bg - bx * ag)
+(a0 * A_PRICE - price + b0) // snd = (total_x - ax * a0 - bx * b0) // (ax * bg - bx * ag)
+a0 * A_PRICE - price + b0 = snd * ((total_x - ax * a0 - bx * b0) // (ax * bg - bx * ag))
+price = - (snd * ((total_x - ax * a0 - bx * b0) // (ax * bg - bx * ag)) - a0 * A_PRICE - b0)
