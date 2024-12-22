@@ -34,7 +34,6 @@ def find_a_b(prize: list[int]) -> tuple[int, int]:
     ag = ax // gcdx
     bg = bx // gcdx
 
-    # we are looking for k, where a and b will be positive. it's an overlap range
     # we computed a and b for x part, now we want to compute for y part
     k = b0 // ag
     a, b = (a0 + bg * k), (b0 - ag * k)
